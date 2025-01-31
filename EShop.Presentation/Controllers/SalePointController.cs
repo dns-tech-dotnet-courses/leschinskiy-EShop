@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EShop.Application;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EShop.Presentation.Controllers
@@ -7,23 +7,28 @@ namespace EShop.Presentation.Controllers
     [ApiController]
     public class SalePointController : ControllerBase
     {
-        private SalePoint[] products =
-        [
-            new SalePoint { Id = 1, Name = "Спортивная", SaleArea = 333 },
-            new SalePoint { Id = 2, Name = "Гоголя", SaleArea = 444 },
-            new SalePoint { Id = 3, Name = "Максим", SaleArea = 555 },
-            new SalePoint { Id = 4, Name = "Бачурин", SaleArea = 666 },
-            new SalePoint { Id = 5, Name = "Авангард", SaleArea = 777 }
-        ];
-
         [HttpGet]
-        public IEnumerable<SalePoint> Get()
+        public IEnumerable<SalePointDto> Get([FromQuery] decimal? areaFilter, [FromQuery] short? sortOrder)
         {
-            var mutatedArray = new List<SalePoint>();
-            foreach (SalePoint p in products)
-                mutatedArray.Add(new SalePoint { Id = p.Id, Name = p.Name, SaleArea = p.SaleArea * 100 });
+            var handler = new SalePointHandler();
+            var salePoints = handler.Get();
 
-            return mutatedArray;
+            if (areaFilter is not null)
+                salePoints = salePoints.Where(p => p.SaleArea <= areaFilter);
+
+            if (sortOrder is not null)
+            {
+                salePoints = sortOrder > 0
+                    ? salePoints.OrderByDescending(p => p.SaleArea)
+                    : salePoints.OrderBy(p => p.SaleArea);
+            }
+
+            var listOfDto = new List<SalePointDto>();
+            foreach (var salePoint in salePoints)
+                listOfDto.Add(new SalePointDto { Name = salePoint.Name, SaleArea = salePoint.SaleArea });
+
+            return listOfDto;
+
         }
     }
 }
