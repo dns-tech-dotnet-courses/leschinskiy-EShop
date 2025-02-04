@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Domain", "EShop.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.Application", "EShop.Application\EShop.Application.csproj", "{4E179B39-3CBD-4EA0-95DD-C2ABBD70467B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.DAL", "EShop.DAL\EShop.DAL.csproj", "{1BDAC86A-CFB4-4D27-8FFF-C9188FA103BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4E179B39-3CBD-4EA0-95DD-C2ABBD70467B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E179B39-3CBD-4EA0-95DD-C2ABBD70467B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E179B39-3CBD-4EA0-95DD-C2ABBD70467B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BDAC86A-CFB4-4D27-8FFF-C9188FA103BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BDAC86A-CFB4-4D27-8FFF-C9188FA103BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BDAC86A-CFB4-4D27-8FFF-C9188FA103BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BDAC86A-CFB4-4D27-8FFF-C9188FA103BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
