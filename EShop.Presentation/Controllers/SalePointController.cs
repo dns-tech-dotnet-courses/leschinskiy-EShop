@@ -1,5 +1,4 @@
 ﻿using EShop.Application;
-using EShop.DAL;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EShop.Presentation.Controllers
@@ -8,12 +7,17 @@ namespace EShop.Presentation.Controllers
     [ApiController]
     public class SalePointController : ControllerBase
     {
+        private SalePointHandler _handler;
+
+        public SalePointController(SalePointHandler handler)
+        {
+            _handler = handler;
+        }
+
         [HttpGet("getAll")]
         public IEnumerable<SalePointDto> Get([FromQuery] decimal? areaFilter, [FromQuery] short? sortOrder)
         {
-            var handler = new SalePointHandler(new InMemorySalePointRepository());
-            var salePoints = handler.Get();
-
+            var salePoints = _handler.Get();
             if (areaFilter is not null)
                 salePoints = salePoints.Where(p => p.SaleArea <= areaFilter);
 
@@ -35,9 +39,7 @@ namespace EShop.Presentation.Controllers
         [HttpGet("getById")]
         public IEnumerable<SalePointDto> GetById(int? id)
         {
-            var handler = new SalePointHandler(new InMemorySalePointRepository());
-            var salePoints = handler.GetById(id);
-
+            var salePoints = _handler.GetById(id);
             var listOfDto = new List<SalePointDto>();
             foreach (var salePoint in salePoints)
                 listOfDto.Add(new SalePointDto { Name = salePoint.Name, SaleArea = salePoint.SaleArea });
